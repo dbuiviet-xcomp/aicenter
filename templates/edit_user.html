@@ -1,0 +1,41 @@
+{% extends "home_base.html" %}
+
+{% block title %}Sửa Người dùng {{ user_to_edit.username }}{% endblock %}
+
+{% block content %}
+<h2>Sửa thông tin Người dùng: {{ user_to_edit.username }}</h2>
+
+{% if error %}
+  <div class="alert alert-danger" role="alert">{{ error }}</div>
+{% endif %}
+
+{% if msg %}
+  <div class="alert alert-success" role="alert">{{ msg }}</div>
+{% endif %}
+
+<form method="post" class="mb-4">
+  <div class="mb-3">
+    <label for="phone" class="form-label">Số điện thoại</label>
+    <input type="text" class="form-control" id="phone" name="phone" value="{{ user_to_edit.phone }}" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="key" class="form-label">Key</label>
+    <input type="text" class="form-control" id="key" name="key" value="{{ user_to_edit.key }}" required>
+  </div>
+
+  <fieldset class="mb-3">
+    <legend>Quyền</legend>
+    {% for role_name in role_names %}
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="role-{{ loop.index }}" name="roles" value="{{ role_name }}"
+        {% if role_name in roles %} checked {% endif %}>
+      <label class="form-check-label" for="role-{{ loop.index }}">{{ role_name }}</label>
+    </div>
+    {% endfor %}
+  </fieldset>
+
+  <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+  <a href="/users" class="btn btn-secondary ms-2">Hủy</a>
+</form>
+{% endblock %}

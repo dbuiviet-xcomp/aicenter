@@ -1,0 +1,52 @@
+{% extends "home_base.html" %}
+
+{% block title %}Thư viện NLP{% endblock %}
+
+{% block content %}
+<style>
+  p {padding: 0; margin: 0;}
+</style>
+<div class="container mt-4">
+  <h2>NLP</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+
+        <th>Tên</th>
+           <th>Mô tả</th>
+
+        <th>Code</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for lab in labs %}
+      <tr>
+
+        <td>
+            {{ lab.name }}
+        </td>
+        <td>
+
+            <a href="{{ lab.link }}" target="_blank">{{ lab.link }}</a>
+            {{ lab.mota | safe }}
+        </td>
+
+
+
+        <td>
+
+          {{ lab.code | safe }}
+        </td>
+
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="10" class="text-center">Chưa có lab nào</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

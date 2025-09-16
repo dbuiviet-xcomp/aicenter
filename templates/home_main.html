@@ -1,0 +1,88 @@
+{% extends "home_base.html" %}
+
+{% block title %}
+  {% if lang == 'en' %}
+    AI Technology Center
+  {% elif lang == 'fr' %}
+    Centre technologique d'IA
+  {% elif lang == 'ru' %}
+    Центр технологий ИИ
+  {% else %}
+    Trung tâm công nghệ AI
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url("/static/center_bg.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .row {
+    height: 100vh;
+    margin: 0;
+  }
+  .content-box {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    border-radius: 8px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+</style>
+
+<div class="row align-items-center">
+  <div class="offset-md-7 col-md-5">
+    <div class="content-box">
+      <h1>
+
+          {% if lang == 'en' %}
+            AI Technology Center
+          {% elif lang == 'fr' %}
+            Centre technologique d'IA
+          {% elif lang == 'ru' %}
+            Центр технологий ИИ
+          {% else %}
+            Trung tâm công nghệ AI
+          {% endif %}
+
+      </h1>
+
+      <p>
+        <strong class="me-2">
+          {% if lang == 'en' %}
+            Developers:
+            {% elif lang == 'fr' %}
+            Développeurs :
+            {% elif lang == 'ru' %}
+            Разработчики:
+            {% else %}
+            Nhà phát triển:
+          {% endif %}
+        </strong>
+        <a href="/nlp" class="me-3">
+          {% if lang == 'en' %}
+            Natural Language Processing (NLP)
+            {% elif lang == 'fr' %}
+            Traitement du langage naturel (NLP)
+            {% elif lang == 'ru' %}
+            Обработка естественного языка (NLP)
+            {% else %}
+            Xử lý ngôn ngữ tự nhiên (NLP)
+          {% endif %}
+        </a>
+
+      </p>
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

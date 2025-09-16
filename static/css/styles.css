@@ -1,0 +1,259 @@
+/* Container chat */
+#ai_chat_container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Khoảng cách giữa các tin nhắn */
+  max-height: 100%; /* Tối đa chiều cao */
+  overflow-y: auto; /* Cuộn dọc nếu cần */
+  padding: 10px; /* Padding bên trong */
+  background: #f9f9f9; /* Màu nền */
+  border-radius: 5px; /* Bo tròn góc */
+}
+
+/* Tin nhắn User */
+.chat-message.user {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: white;
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 12px 12px 0 12px;
+  word-break: break-word;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  white-space: pre-wrap; /* Giữ định dạng văn bản và cho phép xuống dòng */
+}
+
+/* Tin nhắn AI */
+.chat-message.ai {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+  color: #222;
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 12px 12px 12px 0;
+  word-break: break-word;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  white-space: pre-wrap; /* Giữ định dạng văn bản và cho phép xuống dòng */
+}
+
+/* Header AI: logo + tên */
+.chat-message.ai .ai-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+/* Logo AI */
+.chat-message.ai .ai-header img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Tên AI */
+.chat-message.ai .ai-header strong {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111;
+  user-select: none;
+}
+
+/* Textarea Chat Input */
+#ai_chat_form textarea {
+  resize: vertical;
+  min-height: 60px;
+  max-height: 150px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+}
+
+/* Nút gửi câu hỏi */
+#ai_chat_form button {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Nút hover pointer */
+button:hover {
+  cursor: pointer;
+}
+
+/* Custom Scrollbar */
+#ai_chat_container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#ai_chat_container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+#ai_chat_container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+
+/* Nếu dùng Bootstrap Navbar */
+.navbar {
+  height: 56px;
+}
+
+#chatWrapper {
+  display: flex;
+  flex-direction: column;
+  /* 70 (h1) + 56 (navbar), chỉnh nếu header/menubar cao khác */
+  height: calc(100vh  - 56px - 34px);
+  margin: 0;
+  box-sizing: border-box;
+  /* Nếu có navbar ngoài h1 thì đổi thành height: calc(100vh - 70px - 56px); */
+}
+
+#chatContainer {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background: #fafafa;
+  /* For nice scroll on all platforms */
+  scrollbar-width: thin;
+  scrollbar-color: #bbb #fafafa;
+}
+
+#chatContainer::-webkit-scrollbar {
+  width: 8px;
+}
+#chatContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+/* Khung form dưới cùng */
+#chatForm {
+  flex-shrink: 0;
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  align-items: center;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.07);
+}
+
+/* Ô nhập câu hỏi (textarea) */
+#questionInput {
+    flex-grow: 1;
+    min-height: 45px;
+    max-height: 200px;
+    resize: vertical;   /* <-- thêm dòng này */
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #f6f8fa;
+    height:100px;
+  }
+
+/* Nút gửi và ghi âm */
+#chatForm button {
+  height: 45px;
+  white-space: nowrap;
+  padding: 0 15px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+#chatForm button:active {
+  opacity: 0.7;
+}
+#chatForm button.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+#chatForm button.btn-primary:hover {
+  background-color: #0069d9;
+}
+#chatForm button.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+#chatForm button.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Bubble chat cho User và Bot, luôn xuống dòng đúng như soạn thảo */
+.chat-bubble-user,
+.chat-bubble-bot {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 80%;
+  white-space: pre-line; /* Giữ xuống dòng đúng như textarea */
+  word-break: break-word;
+  font-size: 1.25em;
+}
+
+.chat-bubble-user {
+  background: #0080ff;
+  color: #fff;
+  text-align: left;
+}
+
+.chat-bubble-bot {
+  background: #e9ecef;
+  color: #222;
+  text-align: left;
+}
+
+/* Trên màn nhỏ: khung chat max width 100% */
+@media (max-width: 600px) {
+  #chatContainer,
+  .chat-bubble-user, .chat-bubble-bot {
+    max-width: 100%;
+    font-size: 1em;
+  }
+
+  #chatForm {
+    flex-direction: row;
+    gap: 6px;
+    padding: 6px 3px;
+  }
+  #chatForm button, #chatForm textarea {
+    font-size: 1em;
+    padding: 0 8px;
+    height: 38px;
+  }
+  #questionInput {
+    min-width: 0;
+    font-size: 1em;
+  }
+
+  #startRecordingBtn .mic-text {
+    display: none;
+  }
+  /* Có thể cho .mic-icon margin tách khỏi button nhỏ */
+  #startRecordingBtn .mic-icon {
+    margin-right: 0;
+    font-size: 1.2em;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+
+/* Thêm padding nhỏ cho trình bày đẹp với các đoạn message */
+#chatContainer > div {
+  margin-bottom: 16px;
+}
+
+.dicom-file-btn.active {
+  font-weight: bold;
+  color: #0d6efd;
+  text-decoration: underline;
+}

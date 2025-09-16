@@ -1,0 +1,65 @@
+{% extends "home_base.html" %}
+
+{% block title %}{{ action }} Lab{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ action }} Lab</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label for="name" class="form-label">Tên</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{ lab.name if lab else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="link" class="form-label">Link</label>
+      <input type="url" class="form-control" id="link" name="link" value="{{ lab.link if lab else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="public" class="form-label">Public</label>
+      <select class="form-select" id="public" name="public" required>
+        <option value="public" {% if lab and lab.public == 'public' %}selected{% endif %}>Public</option>
+        <option value="private" {% if lab and lab.public == 'private' %}selected{% endif %}>Private</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="active" class="form-label">Active</label>
+      <select class="form-select" id="active" name="active" required>
+        <option value="active" {% if lab and lab.active == 'active' %}selected{% endif %}>Active</option>
+        <option value="nonactive" {% if lab and lab.active == 'nonactive' %}selected{% endif %}>Nonactive</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="lab_type" class="form-label">Loại Lab</label>
+      <select class="form-select" id="lab_type" name="lab_type" required>
+        {% set types = ['NLP', 'Picture', 'Video', 'Audio'] %}
+        {% for t in types %}
+        <option value="{{ t }}" {% if lab and lab.lab_type == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </div>
+     <div class="mb-3">
+      <label for="order" class="form-label">Thứ tự</label>
+      <input type="number" step="0.01" class="form-control" id="order" name="order"
+             value="{{ lab.order if lab and lab.order is not none else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label for="mota" class="form-label">Mô tả (HTML)</label>
+      <textarea class="form-control" id="mota" name="mota" rows="4">{{ lab.mota if lab else '' }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="code" class="form-label">Code (HTML)</label>
+      <textarea class="form-control" id="code" name="code" rows="4">{{ lab.code if lab else '' }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-success">{{ action }}</button>
+    <a href="/labs" class="btn btn-secondary ms-2">Hủy</a>
+  </form>
+</div>
+
+<!-- Thêm script CKEditor -->
+<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+<script>
+  CKEDITOR.replace('mota');
+  CKEDITOR.replace('code');
+</script>
+{% endblock %}

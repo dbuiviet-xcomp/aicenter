@@ -1,0 +1,57 @@
+{% extends "home_base.html" %}
+
+{% block title %}Danh sách Lab{% endblock %}
+
+{% block content %}
+<style>
+  p {padding: 0; margin: 0;}
+</style>
+<div class="container mt-4">
+  <h2>Danh sách Lab</h2>
+  <a href="/labs/create" class="btn btn-primary mb-3">Thêm mới Lab</a>
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>Thứ tự</th>
+        <th>Loại Lab</th>
+        <th>Tên</th>
+        <th>Link</th>
+
+        <th>Mô tả</th>
+        <th>Code</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lab in labs %}
+      <tr>
+        <td>{{ lab.order }}</td>
+        <td>{{ lab.lab_type }} <br> {{ lab.public }} <br> {{ lab.active }}
+        </td>
+        <td>{{ lab.name }}</td>
+        <td><a href="{{ lab.link }}" target="_blank">{{ lab.link }}</a></td>
+
+        <td>
+
+          {{ lab.mota | safe }}
+        </td>
+
+        <td>
+
+          {{ lab.code | safe }}
+        </td>
+        <td>
+          <a href="/labs/edit/{{ lab._id }}" class="btn btn-sm btn-warning">Sửa</a>
+          <a href="/labs/delete/{{ lab._id }}" class="btn btn-sm btn-danger"
+             onclick="return confirm('Bạn có chắc muốn xóa lab này?');">Xóa</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="10" class="text-center">Chưa có lab nào</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

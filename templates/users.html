@@ -1,0 +1,70 @@
+{% extends "home_base.html" %}
+
+{% block title %}Quản lý Người dùng{% endblock %}
+
+{% block content %}
+<h2>Quản lý Người dùng</h2>
+
+{% if error %}
+  <div class="alert alert-danger" role="alert">{{ error }}</div>
+{% endif %}
+
+{% if msg %}
+  <div class="alert alert-success" role="alert">{{ msg }}</div>
+{% endif %}
+
+<div class="row">
+  <!-- Form tạo user - nằm bên trái -->
+  <div class="col-md-4">
+    <form method="post" action="/users/create" class="p-3 border rounded bg-light" style="max-width: 100%;">
+      <div class="mb-3">
+        <label for="username" class="form-label">Tên người dùng</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Số điện thoại</label>
+        <input type="text" class="form-control" id="phone" name="phone" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Tạo Người dùng</button>
+    </form>
+  </div>
+
+  <!-- Bảng danh sách user - nằm bên phải -->
+  <div class="col-md-8">
+    <table class="table table-bordered table-striped">
+      <thead class="table-light">
+        <tr>
+          <th>Tên người dùng</th>
+          <th>Số điện thoại</th>
+          <th>Quyền</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.username }}</td>
+          <td>{{ user.phone }}</td>
+          <td>
+            {% if user.roles and user.roles|length > 0 %}
+              {{ user.roles | join(", ") }}
+            {% else %}
+              <span class="text-muted">Chưa có quyền</span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="/users/edit/{{ user.username }}" class="btn btn-sm btn-outline-primary">Sửa</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="4" class="text-center">Chưa có người dùng nào</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

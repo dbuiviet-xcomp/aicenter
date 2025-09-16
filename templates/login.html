@@ -1,0 +1,26 @@
+{% extends "home_base.html" %}
+
+{% block title %}Đăng nhập{% endblock %}
+
+{% block content %}
+<h2>Đăng nhập bằng số điện thoại</h2>
+
+{% if error %}
+  <div class="alert alert-danger" role="alert">{{ error }}</div>
+{% endif %}
+
+<form method="post" action="/login" novalidate>
+    <input type="hidden" name="next" value="{{ next }}" />
+  <div class="mb-3">
+    <label for="phone" class="form-label">Số điện thoại</label>
+    <input type="text" id="phone" name="phone" class="form-control" required autofocus>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Mật khẩu</label>
+    <input type="password" id="password" name="password" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Đăng nhập</button>
+</form>
+{% endblock %}

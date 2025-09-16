@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="{{ lang or 'vi' }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>
+    {% block title %}
+      {% if lang == 'en' %}
+        AI Technology Center
+      {% elif lang == 'fr' %}
+        Centre technologique d'IA
+      {% elif lang == 'ru' %}
+        Центр технологий ИИ
+      {% else %}
+        Trung tâm công nghệ AI
+      {% endif %}
+    {% endblock %}
+  </title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+  <link rel="icon" type="image/png" href="/static/center_lg.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  {% block headextra %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="/static/center_lg.png" alt="Logo SPD" height="40" class="me-2" />
+        <span>CENTER.AI.VN</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="{% if lang == 'en' %}Toggle navigation{% elif lang == 'fr' %}Basculer la navigation{% elif lang == 'ru' %}Переключить навигацию{% else %}Chuyển đổi thanh điều hướng{% endif %}">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link {% if active_tab == 'home' %}active{% endif %}" href="/">
+              {% if lang == 'en' %}
+                Home
+              {% elif lang == 'fr' %}
+                Accueil
+              {% elif lang == 'ru' %}
+                Главная
+              {% else %}
+                Trang Chủ
+              {% endif %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link {% if active_tab == 'nlp' %}active{% endif %}" href="/nlp">
+              NLP
+            </a>
+          </li>
+
+          <!-- Medical Management -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle {% if active_tab in ['facilities', 'departments', 'staff'] %}active{% endif %}" href="#"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             {% if lang == 'vi' %} Quản lý hệ thống
+              {% elif lang == 'en' %} System Management
+              {% elif lang == 'fr' %} Gestion du système
+              {% elif lang == 'ru' %} Управление системой
+              {% else %} Quản lý hệ thống
+              {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+
+              <li>
+                <a class="dropdown-item {% if active_tab == 'users' %}active{% endif %}" href="/users">
+                  {% if lang == 'en' %} Users
+                  {% elif lang == 'fr' %} Utilisateurs
+                  {% elif lang == 'ru' %} Пользователи
+
+                  {% else %} Người dùng
+                  {% endif %}
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item {% if active_tab == 'labs' %}active{% endif %}" href="/labs">
+                  {% if lang == 'en' %} Library
+                  {% elif lang == 'fr' %} Bibliothèque
+                  {% elif lang == 'ru' %} Библиотека
+                  {% else %} Thư viện
+                  {% endif %}
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+          <!-- Dropdown chọn ngôn ngữ -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if lang == 'vi' %}
+                <img src="/static/flags/vn.png" alt="Vietnamese" style="width:24px; height:24px; border-radius:50%;" class="me-1" /> Tiếng Việt
+              {% elif lang == 'en' %}
+                <img src="/static/flags/en.png" alt="English" style="width:24px; height:24px; border-radius:50%;" class="me-1" /> English
+                            {% elif lang == 'fr' %}
+                <img src="/static/flags/fr.png" alt="Français" style="width:24px; height:24px; border-radius:50%;" class="me-1" /> Français
+              {% elif lang == 'ru' %}
+                <img src="/static/flags/ru.png" alt="Русский" style="width:24px; height:24px; border-radius:50%;" class="me-1" /> Русский
+              {% else %}
+                Language
+              {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="/set-lang/vi">
+                  <img src="/static/flags/vn.png" alt="Vietnamese" style="width:24px; height:24px; border-radius:50%;" class="me-2" />
+                  Tiếng Việt
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/set-lang/en">
+                  <img src="/static/flags/en.png" alt="English" style="width:24px; height:24px; border-radius:50%;" class="me-2" />
+                  English
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/set-lang/fr">
+                  <img src="/static/flags/fr.png" alt="Français" style="width:24px; height:24px; border-radius:50%;" class="me-2" />
+                  Français
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/set-lang/ru">
+                  <img src="/static/flags/ru.png" alt="Русский" style="width:24px; height:24px; border-radius:50%;" class="me-2" />
+                  Русский
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          {% if user %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if lang == 'en' %}
+                Hello, {{ user.name }}
+              {% elif lang == 'fr' %}
+                Bonjour, {{ user.name }}
+              {% elif lang == 'ru' %}
+                Здравствуйте, {{ user.name }}
+              {% else %}
+                Xin chào, {{ user.name }}
+              {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="/logout">
+                  {% if lang == 'en' %}
+                    Logout
+                  {% elif lang == 'fr' %}
+                    Déconnexion
+                  {% elif lang == 'ru' %}
+                    Выйти
+                  {% else %}
+                    Đăng xuất
+                  {% endif %}
+                </a>
+              </li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login">
+              {% if lang == 'en' %}
+                Login
+              {% elif lang == 'fr' %}
+                Connexion
+              {% elif lang == 'ru' %}
+                Войти
+              {% else %}
+                Đăng nhập
+              {% endif %}
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-fluid my-4">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

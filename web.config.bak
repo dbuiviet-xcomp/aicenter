@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <system.webServer>
+    <rewrite>
+      <rules>
+
+
+        <!-- Chuyển hướng toàn bộ HTTP sang HTTPS -->
+        <rule name="Redirect to HTTPS" stopProcessing="true">
+          <match url="(.*)" />
+          <conditions>
+            <add input="{HTTPS}" pattern="^OFF$" ignoreCase="true" />
+          </conditions>
+          <action type="Redirect" url="https://{HTTP_HOST}/{R:1}" redirectType="Permanent" />
+        </rule>
+
+        <!-- Reverse proxy -->
+        <rule name="ReverseProxyToUvicorn" stopProcessing="true">
+          <match url="(.*)" />
+          <action type="Rewrite" url="http://127.0.0.1:8888/{R:1}" />
+        </rule>
+      </rules>
+
+    </rewrite>
+
+    <!-- Thêm cấu hình CORS -->
+    <httpProtocol>
+      <customHeaders>
+        <add name="Access-Control-Allow-Origin" value="*" />
+        <add name="Access-Control-Allow-Methods" value="GET,POST,OPTIONS" />
+        <add name="Access-Control-Allow-Headers" value="Content-Type,api_key,service,text" />
+      </customHeaders>
+    </httpProtocol>
+
+    <!-- Cho phép xử lý OPTIONS request -->
+    <handlers>
+      <remove name="OPTIONSVerbHandler" />
+      <add name="OPTIONSVerbHandler" path="*" verb="OPTIONS" modules="IsapiModule" scriptProcessor="%windir%\system32\inetsrv\asp.dll" resourceType="Unspecified" requireAccess="None" preCondition="bitness64" />
+      <remove name="Python via FastCGI" />
+    </handlers>
+
+  </system.webServer>
+</configuration>
